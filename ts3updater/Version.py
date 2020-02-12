@@ -64,6 +64,9 @@ class VersionChecker:
     def get_installed_version(self):
         changelog_file = os.path.join(self.ts3_directory, "CHANGELOG")
 
+        if not os.path.exists(changelog_file):
+            raise ValueError("Changelog file not found!")
+
         f = open(changelog_file, "r")
         chlog_text = f.read()
         f.close()
