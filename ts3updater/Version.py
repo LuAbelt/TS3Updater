@@ -54,12 +54,15 @@ class TSVersion:
 
         return False
 
+    def __str__(self):
+        return self.major + "." + self.minor + "." + self.fix
+
 
 class VersionChecker:
 
     def __init__(self, ts3_directory):
         self.__version_check_link = "https://www.teamspeak.de/download/teamspeak-3-amd64-server-linux/"
-        self.ts3_dir = ts3_directory
+        self.ts3_directory = ts3_directory
 
     def get_installed_version(self):
         changelog_file = os.path.join(self.ts3_directory, "CHANGELOG")
