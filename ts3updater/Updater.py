@@ -1,7 +1,6 @@
 from ts3updater.Version import VersionChecker
 from typing import Callable
 import tarfile
-import tempfile
 import os
 import wget
 
@@ -65,12 +64,13 @@ class Updater:
         print(self.install_dir)
         print(tmp_file)
         with tarfile.open(tmp_file, "r") as tar:
-            top_level_dir = tar.getmembers()[0].path+"/"
+            top_level_dir = tar.getmembers()[0].path + "/"
             for member in tar.getmembers():
                 if member.path.startswith(top_level_dir):
                     member.path = member.path[len(top_level_dir):]
 
             tar.extractall(self.install_dir)
+            os.rmdir(os.path.join(self.install_dir, tar.getmembers()[0].path))
 
         self.start_server()
 
